@@ -7,7 +7,7 @@ function AllTheBooks() {
       {books.map((book) => (
         <Col
           key={book.asin}
-          xs={3}
+          xs={12}
           md={4}
           className="p-4 d-flex justify-content-center"
         >
