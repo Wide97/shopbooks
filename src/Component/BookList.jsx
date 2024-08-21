@@ -1,16 +1,38 @@
 import React, { Component } from "react";
-import SingleBook from "./SingleBook"; 
+import SingleBook from "./SingleBook";
+import { Col, Container, FormControl, Row } from "react-bootstrap";
 
 class BookList extends Component {
+  state = {
+    searchValue: "",
+  };
   render() {
-    const { books } = this.props; 
+    const { books } = this.props;
 
     return (
-      <div className="book-list" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-        {books.map((book, index) => (
-          <SingleBook key={index} book={book} /> 
-        ))}
-      </div>
+      <Container>
+        <Row>
+          <Col>
+            <FormControl
+              type="text"
+              placeholder="cerca un libro"
+              value={this.state.searchValue}
+              onChange={(e) => {
+                this.setState({
+                  searchValue: e.target.value,
+                });
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          {books.map((book, index) => (
+            <Col key={index} xs={12} md={6} lg={3}>
+              <SingleBook book={book} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     );
   }
 }

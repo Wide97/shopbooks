@@ -8,7 +8,7 @@ class SingleBook extends Component {
         const { book } = this.props; 
 
         return (
-            <Card style={{ width: '15%' }}>
+            <Card style={{ width: '100%' }}>
                 <Card.Img variant="top" src={book.img} alt={book.title} />
                 <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
