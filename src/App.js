@@ -4,7 +4,8 @@ import MyFooter from './Component/MyFooter';
 import MyNav from './Component/MyNav';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Welcome from './Component/Welcome';
-import AllTheBooks from './Component/AllTheBooks';
+import SingleBook from './Component/SingleBook';
+// import AllTheBooks from './Component/AllTheBooks';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       </header>
       <main>
       <Welcome/>
-      <AllTheBooks/>
+      {/* <AllTheBooks/> */}
+      <SingleBook/>
     </main>
     <footer>
       <MyFooter/>
