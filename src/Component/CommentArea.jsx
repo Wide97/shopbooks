@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Spinner, Alert, Form, Button } from 'react-bootstrap';
+import { Spinner, Alert } from 'react-bootstrap';
+import CommentsList from './CommentsList';
+import AddComment from './AddComment';
 
 class CommentArea extends Component {
   state = {
-    comments: [],  
-    isLoading: true,  
-    error: null,  
-    newComment: ''
+    comments: [],
+    isLoading: true,
+    error: null,
   };
 
   componentDidMount() {
@@ -33,45 +34,37 @@ class CommentArea extends Component {
       });
   };
 
-  handleInputChange = (e) => {
-    this.setState({ newComment: e.target.value });
-  };
+  handleAddComment = (commentText, rating) => {
+    const commentData = {
+      comment: commentText,
+      rate: rating,
+      elementId: this.props.bookId
+    };
 
-  handleAddComment = (e) => {
-    e.stopPropagation(); 
-    const { newComment } = this.state;
-    if (newComment.trim()) {
-      const commentData = {
-        comment: newComment,
-        elementId: this.props.bookId
-      };
-
-      fetch('https://striveschool-api.herokuapp.com/api/comments/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmEzNjZjOWYyNjBjYzAwMTVjYzBkZmYiLCJpYXQiOjE3MjQzMzI3NzgsImV4cCI6MTcyNTU0MjM3OH0.Nem5TBCFtAHGg6RQPOw2lmZjcCCB_W2P1_lJMf-4ZX0'
-        },
-        body: JSON.stringify(commentData)
+    fetch('https://striveschool-api.herokuapp.com/api/comments/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmEzNjZjOWYyNjBjYzAwMTVjYzBkZmYiLCJpYXQiOjE3MjQzMzI3NzgsImV4cCI6MTcyNTU0MjM3OH0.Nem5TBCFtAHGg6RQPOw2lmZjcCCB_W2P1_lJMf-4ZX0"
+      },
+      body: JSON.stringify(commentData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(() => {
-          this.fetchComments();
-          this.setState({ newComment: '' });
-        })
-        .catch(error => {
-          this.setState({ error: error.message });
-        });
-    }
+      .then(() => {
+        this.fetchComments(); 
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      });
   };
 
   render() {
-    const { comments, isLoading, error, newComment } = this.state;
+    const { comments, isLoading, error } = this.state;
 
     return (
       <div>
@@ -79,31 +72,8 @@ class CommentArea extends Component {
         {error && <Alert variant="danger">C'è stato un errore: {error}</Alert>}
         {!isLoading && !error && (
           <div>
-            <ul>
-              {comments.map((comment, index) => (
-                <li key={index}>{comment.comment}</li>
-              ))}
-            </ul>
-            <Form>
-              <Form.Group controlId="formNewComment">
-                <Form.Label>Aggiungi un commento</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Scrivi un commento"
-                  value={newComment}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
-              <Button
-                variant="primary"
-                onClick={(e) => {
-                  e.stopPropagation(); 
-                  this.handleAddComment(e);
-                }}
-              >
-                Aggiungi Commento
-              </Button>
-            </Form>
+            <CommentsList comments={comments} />
+            <AddComment onAddComment={this.handleAddComment} />
           </div>
         )}
       </div>
