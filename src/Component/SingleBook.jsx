@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Card } from 'react-bootstrap';
-import CommentArea from './CommentArea'; 
+import CommentArea from './CommentArea';
 
 class SingleBook extends Component {
   state = {
     selected: false,
   };
 
-  handleClick = () => {
+  handleCoverClick = (e) => {
+    e.stopPropagation(); 
     this.setState(prevState => ({ selected: !prevState.selected }));
   };
 
@@ -17,15 +18,19 @@ class SingleBook extends Component {
 
     return (
       <Card
-        onClick={this.handleClick}
         style={{ border: selected ? '3px solid red' : 'none' }}
       >
-        <Card.Img variant="top" src={book.img} />
+        <Card.Img 
+          variant="top" 
+          src={book.img} 
+          onClick={this.handleCoverClick} 
+          style={{ cursor: 'pointer' }} 
+        />
         <Card.Body>
           <Card.Title style={{ color: 'black' }}>
             {book.title}
           </Card.Title>
-          {selected && <CommentArea />}
+          {selected && <CommentArea bookId={book.asin}/>}
         </Card.Body>
       </Card>
     );
