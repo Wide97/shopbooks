@@ -35,14 +35,17 @@ class CommentArea extends Component {
         return response.json();
       })
       .then((data) => {
+        console.log("Fetched comments:", data);
         this.setState({ comments: data, isLoading: false });
       })
       .catch((error) => {
+        console.error("Error fetching comments:", error);
         this.setState({ error: error.message, isLoading: false });
       });
   };
 
   render() {
+    console.log("Current bookId:", this.props.bookId);
     const { comments, isLoading, error } = this.state;
 
     return (
