@@ -10,8 +10,10 @@ class CommentArea extends Component {
     error: null,
   };
 
-  componentDidMount() {
-    this.fetchComments();
+  componentDidUpdate(prevProps) {
+    if (this.props.bookId && this.props.bookId !== prevProps.bookId) {
+      this.fetchComments(); 
+    }
   }
 
   fetchComments = () => {

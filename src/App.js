@@ -12,14 +12,14 @@ import { Component } from "react";
 
 class App extends Component {
   state = {
-    searchQuery: '',
-  }
+    selectedBookAsin: null,
+  };
 
-  changeState = (newSelectedValue) => {
+  changeSelectedBook = (asin) => {
     this.setState({
-      selected: newSelectedValue, 
-    })
-  }
+      selectedBookAsin: asin,
+    });
+  };
 
   render() {
     return (
@@ -30,12 +30,15 @@ class App extends Component {
         <main>
           <Welcome />
           <Row>
-            <Col>
+            <Col xs={12} md={8} lg={6}>
               {/* <AllTheBooks/> */}
-              <BookList books={books} />
+              <BookList
+                books={books}
+                onBookSelected={this.changeSelectedBook}
+              />
             </Col>
-            <Col>
-              <CommentArea />
+            <Col xs={12} md={4}>
+              <CommentArea bookId={this.state.selectedBookAsin} />
             </Col>
           </Row>
         </main>
