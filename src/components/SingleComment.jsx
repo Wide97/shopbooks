@@ -4,7 +4,7 @@ const SingleComment = ({ comment }) => {
   const deleteComment = async (asin) => {
     try {
       let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments/' + asin,
+        "https://striveschool-api.herokuapp.com/api/put-your-endpoint-here/" + asin,
         {
           method: 'DELETE',
           headers: {
