@@ -17,7 +17,10 @@ const SingleBook = ({ book, selectedBook, changeSelectedBook }) => {
               selectedBook === book.asin
                 ? '3px solid red'
                 : 'none',
+                
+
           }}
+          data-testid='book'
         >
           <Card.Img variant="top" src={book.img} />
           <Card.Body>

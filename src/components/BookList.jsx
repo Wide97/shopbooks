@@ -23,6 +23,7 @@ const BookList = ({ books }) => {
                   placeholder="Cerca un libro"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  
                 />
               </Form.Group>
             </Col>
@@ -38,6 +39,7 @@ const BookList = ({ books }) => {
                     book={b}
                     selectedBook={selectedBook}
                     changeSelectedBook={changeSelectedBook}
+                    
                   />
                 </Col>
               ))}
