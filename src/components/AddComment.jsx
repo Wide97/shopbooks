@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Button, Form } from "react-bootstrap";
 
 const AddComment = ({ asin }) => {
   const [comment, setComment] = useState({
-    comment: '',
+    comment: "",
     rate: 1,
     elementId: asin,
   });
@@ -21,23 +21,24 @@ const AddComment = ({ asin }) => {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments",
         {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(comment),
           headers: {
-            'Content-type': 'application/json',
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmEzNjZjOWYyNjBjYzAwMTVjYzBkZmYiLCJpYXQiOjE3MjQ3NjE4OTksImV4cCI6MTcyNTk3MTQ5OX0.DMHgc4APfr8638CHfI0hgDc19kDP94DAi93OYL6P_vs",
+            "Content-type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmEzNjZjOWYyNjBjYzAwMTVjYzBkZmYiLCJpYXQiOjE3MjQ3NjE4OTksImV4cCI6MTcyNTk3MTQ5OX0.DMHgc4APfr8638CHfI0hgDc19kDP94DAi93OYL6P_vs",
           },
         }
       );
       if (response.ok) {
-        alert('Recensione inviata!');
+        alert("Recensione inviata!");
         setComment({
-          comment: '',
-          rate: 1,
+          comment: "",
+  rate: 1,
           elementId: asin,
         });
       } else {
-        throw new Error('Qualcosa è andato storto');
+        throw new Error("Qualcosa è andato storto");
       }
     } catch (error) {
       alert(error);
