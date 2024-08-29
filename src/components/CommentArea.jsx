@@ -41,7 +41,7 @@ const CommentArea = ({ asin }) => {
   }, [asin]);
 
   return (
-    <div className="text-center">
+    <div className="text-center" data-testid='comments'>
       {isLoading && <Loading />}
       {isError && <Error />}
       <AddComment asin={asin} />
